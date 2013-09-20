@@ -6,10 +6,15 @@ from product.models import Category, Product
 register = Library()
 
 
-@register.inclusion_tag('satchmo_tools/category_navigation.html', takes_context=True)
+@register.inclusion_tag('category_navigation/_category_navigation.html', takes_context=True)
 def category_navigation(context):
+    category = None
+    if 'category' in context:
+        category = context['category']
     return {
-        'nodes': Category.objects.root_categories()
+        'nodes': Category.objects.root_categories(),
+        'root': True,
+        'category': category
     }
 
 @register.assignment_tag
@@ -21,7 +26,3 @@ def category_is_active(node, category):
         ids = [c.id for c in category.parents()]
         active = node.id in ids
     return active
-
-@register.assignment_tag
-def random_featured(n):
-    return Product.objects.filter(active=True, featured=True).order_by('?')[:n]

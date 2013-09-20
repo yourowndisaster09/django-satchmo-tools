@@ -1,0 +1,35 @@
+{% load category_navigation_tags %}
+
+
+{% for node in nodes %}
+    {% category_is_active node category as active %}
+    {% if node.child.all %}
+        <li class="{% if active %}active{% endif %}{% if root %} dropdown{% endif %}">
+            <a href="{{ node.get_absolute_url }}" class="{% if active %}current{% endif %}">
+                {{ node.name }}
+                {% if root %}
+                    <b class="caret"></b>
+                {% else %}
+                    <i class="icon-chevron-right pull-right"></i>
+                {% endif %}
+            </a>
+            <ul class="dropdown-menu">
+                {% if root %}
+                    {% with nodes=node.child.all template_name="category_navigation/_category_navigation.html" category=category %}
+                        {% include template_name %}
+                    {% endwith %}
+                {% else %}
+                    {% with nodes=node.child.all template_name="category_navigation/_category_navigation.html" %}
+                        {% include template_name %}
+                    {% endwith %}
+                {% endif %}
+            </ul>
+        </li>
+    {% else %}
+        <li class="{% if active %}active{% endif %}">
+            <a href="{{ node.get_absolute_url }}" class="{% if active %}current{% endif %}">
+                {{ node.name }}
+            </a>
+        </li>
+    {% endif %}
+{% endfor %}
