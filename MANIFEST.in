@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+recursive-include satchmo_tools/static *
+recursive-include satchmo_tools/templates *
+recursive-include satchmo_tools/templatetags *
+recursive-include docs *

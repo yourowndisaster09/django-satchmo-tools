@@ -1,0 +1,22 @@
+{% load satchmo_tools_tags %}
+
+
+{% for node in nodes %}
+    {% category_is_active node category as active %}
+    {% if node.child.all %}
+        <li class="dropdown{% if active %} active{% endif %}">
+            <a href="{{ node.get_absolute_url }}" class="{% if active %} current{% endif %}">
+                {{ node.name }} <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                {% with nodes=node.child.all template_name="satchmo_tools/_category_navigation.html" category=category %}
+                    {% include template_name %}
+                {% endwith %}
+            </ul>
+        </li>
+    {% else %}
+        <li class="{% if active %}active{% endif %}">
+            <a class="{% if active %}current{% endif %}" href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+        </li>
+    {% endif %}
+{% endfor %}
