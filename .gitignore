@@ -1,1 +1,14 @@
-dist
+# Project Specifics
+dist/
+
+# Python bytecode:
+*.py[co]
+
+# Packaging files:
+*.egg*
+
+# Editor files:
+*.swp
+*.bak
+*.tmp
+*~
