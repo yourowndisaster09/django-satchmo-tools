@@ -8,8 +8,6 @@ django_satchmo_tools.egg-info/top_level.txt
 satchmo_tools/__init__.py
 satchmo_tools/category_navigation/__init__.py
 satchmo_tools/category_navigation/__init__.pyc
-satchmo_tools/category_navigation/tests.py
-satchmo_tools/category_navigation/views.py
 satchmo_tools/category_navigation/templates/category_navigation/_category_navigation.html
 satchmo_tools/category_navigation/templatetags/__init__.py
 satchmo_tools/category_navigation/templatetags/__init__.pyc
@@ -18,7 +16,6 @@ satchmo_tools/category_navigation/templatetags/category_navigation_tags.pyc
 satchmo_tools/category_navigation/templatetags/my_store_tags.pyc
 satchmo_tools/product_display/__init__.py
 satchmo_tools/product_display/__init__.pyc
-satchmo_tools/product_display/tests.py
 satchmo_tools/product_display/templatetags/__init__.py
 satchmo_tools/product_display/templatetags/__init__.pyc
 satchmo_tools/product_display/templatetags/category_navigation_tags.pyc
@@ -27,7 +24,6 @@ satchmo_tools/product_display/templatetags/product_display_tags.py
 satchmo_tools/product_display/templatetags/product_display_tags.pyc
 satchmo_tools/store/__init__.py
 satchmo_tools/store/__init__.pyc
-satchmo_tools/store/tests.py
 satchmo_tools/store/management/__init__.py
 satchmo_tools/store/management/__init__.pyc
 satchmo_tools/store/management/commands/__init__.py

@@ -7,7 +7,7 @@ from satchmo_store.shop.models import Config
 
 
 class Command(BaseCommand):
-    help = 'Creates Jajomaxx Store Configuration'
+    help = 'Creates Store Configuration'
 
     def __init__(self):
         super(Command, self).__init__()
@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.create_store_config()
-        self.stdout.write('Completed creating Jajomaxx store configuration\n')
+        self.stdout.write('Completed creating store configuration\n')
 
     def check_settings(self):
         try:
@@ -50,14 +50,14 @@ class Command(BaseCommand):
 
         try:
             config = Config.objects.get(site=self.site)
-            config.store_name = "Jajomaxx"
+            config.store_name = self.SHOP_NAME
             config.country = usa_country
             config.sales_country = usa_country
             config.save()
         except Config.DoesNotExist:
             config = Config.objects.create(
                 site=self.site,
-                store_name="Jajomaxx",
+                store_name=self.SHOP_NAME,
                 country=usa_country,
                 sales_country=usa_country
             )
