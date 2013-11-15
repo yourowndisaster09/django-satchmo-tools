@@ -6,25 +6,33 @@ from django.contrib.staticfiles import finders
 from django.core.files import File
 from django.core.management.base import BaseCommand
 
-from product.models import ProductImage
+from product.models import CategoryImage, ProductImage
 
 
 class Command(BaseCommand):
     help = 'Uploads default unavailable product picture'
 
     def handle(self, *args, **options):
-        image = ProductImage.objects.filter(product__isnull=True)
-        file_path = finders.find(settings.DEFAULT_PRODUCT_IMAGE)
-        result = urllib.urlretrieve(file_path)
-
-        if image:
-            product_image = image[0]
-        else:
+        try:
+            product_image = ProductImage.objects.get(pk=1)
+        except ProductImage.DoesNotExist:
             product_image = ProductImage()
 
-        product_image.picture.save(
+        try:
+            category_image = CategoryImage.objects.get(pk=1)
+        except CategoryImage.DoesNotExist:
+            category_image = CategoryImage()
+
+        self._save_picture(product_image)
+        self._save_picture(category_image)
+
+        self.stdout.write('Added unavailable product picture\n')
+
+    def _save_picture(self, image):
+        file_path = finders.find(settings.DEFAULT_PRODUCT_IMAGE)
+        result = urllib.urlretrieve(file_path)
+        image.picture.save(
             os.path.basename(file_path),
             File(open(result[0]))
         )
-        product_image.save()
-        self.stdout.write('Added unavailable product picture\n')
+        image.save()
