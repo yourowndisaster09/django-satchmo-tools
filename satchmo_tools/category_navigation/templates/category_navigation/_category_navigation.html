@@ -13,7 +13,7 @@
                     <i class="icon-chevron-right pull-right"></i>
                 {% endif %}
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu sub">
                 {% if root %}
                     {% with nodes=node.child.all template_name="category_navigation/_category_navigation.html" category=category %}
                         {% include template_name %}
