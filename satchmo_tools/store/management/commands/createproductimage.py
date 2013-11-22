@@ -31,7 +31,7 @@ class Command(BaseCommand):
     def _save_picture(self, image):
         file_path = finders.find(settings.DEFAULT_PRODUCT_IMAGE)
         result = urllib.urlretrieve(file_path)
-        if hasattr(image, 'picture'):
+        if hasattr(image, 'picture') and image.picture:
             image.picture.delete()
         image.picture.save(
             os.path.basename(file_path),
