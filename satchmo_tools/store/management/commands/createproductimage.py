@@ -1,12 +1,13 @@
 import os
 import urllib
 
-from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.core.files import File
 from django.core.management.base import BaseCommand
 
 from product.models import CategoryImage, ProductImage
+
+from ....config import get_satchmo_tools_setting
 
 
 class Command(BaseCommand):
@@ -29,7 +30,8 @@ class Command(BaseCommand):
         self.stdout.write('Added unavailable product picture\n')
 
     def _save_picture(self, image):
-        file_path = finders.find(settings.DEFAULT_PRODUCT_IMAGE)
+        product_image = get_satchmo_tools_setting('DEFAULT_PRODUCT_IMAGE')
+        file_path = finders.find(product_image)
         result = urllib.urlretrieve(file_path)
         if hasattr(image, 'picture') and image.picture:
             image.picture.delete()
