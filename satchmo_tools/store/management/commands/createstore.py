@@ -51,10 +51,17 @@ class Command(BaseCommand):
 
         required_settings = [
             'SHOP_NAME',
-            'COUNTRY_NAME',
+            'STORE_EMAIL',
+            'PHONE',
+            'STREET_1',
+            'STREET_2',
+            'CITY',
+            'STATE',
             'POSTAL_CODE',
-            'IS_INTERNATIONAL'
+            'COUNTRY_NAME',
+            'IS_INTERNATIONAL',
         ]
+
         for s in required_settings:
             self._set_settings(s)
 
@@ -88,19 +95,31 @@ class Command(BaseCommand):
         try:
             config = Config.objects.get(site=self.site)
             config.store_name = self.SHOP_NAME
+            config.store_email = self.STORE_EMAIL
+            config.phone = self.PHONE
+            config.street1 = self.STREET_1
+            config.street2 = self.STREET_2
+            config.postal_code = self.POSTAL_CODE
+            config.city = self.CITY
+            config.state = self.STATE
             config.country = country
             config.sales_country = country
-            config.postal_code = self.POSTAL_CODE
             config.in_country_only = in_country_only
             config.save()
         except Config.DoesNotExist:
             config = Config.objects.create(
                 site=self.site,
                 store_name=self.SHOP_NAME,
-                country=country,
+                store_email=self.STORE_EMAIL,
+                phone=self.PHONE,
+                street1=self.STREET_1,
+                street2=self.STREET_2,
                 postal_code=self.POSTAL_CODE,
-                in_country_only=in_country_only,
-                sales_country=country
+                city=self.CITY,
+                state=self.STATE,
+                country=country,
+                sales_country=country,
+                in_country_only=in_country_only
             )
         for shipping_country in shipping_countries:
             config.shipping_countries.add(shipping_country)
